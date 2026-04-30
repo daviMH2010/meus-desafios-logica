@@ -98,6 +98,7 @@
     <script>
         // 1. Capturar o botão e o campo de saída (monitor)
         const btn = document.getElementById('btnCheck');
+        const monitor = document.getElementById('resultado-logica');
         // Chamar variável monitor seguindo o padrão da variável btn usando o objeto (resultado-logica) 
 
         // 2. Evento de Clique
@@ -105,7 +106,9 @@
             
             // 3. Capturar os valores dos inputs
             const temp = parseFloat(document.getElementById('tempInput').value);
+            const pres = parseFloat(document.getElementById('presInput').value);
             // Chamar variável pres (pressão) seguindo o padrão
+            const hastes = parseFloat(document.getElementById('hastesInput').value);
             // Chamar variável hastes seguindo o padrão
             
             // Capturar o valor do checkbox (booleano)
@@ -125,6 +128,22 @@
             if (isNaN(temp) || isNaN(pres) || isNaN(hastes)) {
                 msg = "ERRO: SENSORES ILEGÍVEIS";
                 cor = "#ffff00";
+            } 
+            if (400<temp<=700) {
+                msg = "Sistema estável";
+                cor = "#00ff00";
+            } 
+            if (400<temp<=700) {
+                msg = "ALERTA: Estado de atenção";
+                cor = "#ffff00";
+            } 
+            if (temp>700 || hastes<1) {
+                msg = "RISCO DE FUSÃO: O núcleo está sem controle!";
+                cor = "#ff0000";
+            } 
+            if (manual || pres>100) {
+                msg = "DESLIGAMENTO";
+                cor = "#ff0000";
             } 
             //Continue a lógica aqui....
 
