@@ -90,11 +90,13 @@
 
     <script>
         const btn = document.getElementById('btnCalcular');
+        const display = document.getElementById('resultado-logica');
         //Chamar váriavel display seguir padrão de da variavel btn
 
         //Liga o seu código HTML à ação do usuário
         btn.addEventListener('click', () => {
             const angulo = parseFloat(document.getElementById('anguloInput').value);
+            const escudo = parseFloat(document.getElementById('anguloInput').value);
             //Chamar váriavel escudo seguir padrão de da variavel angulo objeto (resultado-logica)
             
             let mensagem = "";
@@ -110,10 +112,30 @@
                 mensagem = "❌ Insira os dados da telemetria!";
                 cor = "#f85149";
             } 
+            if (angulo>25) {
+                mensagem = "CRITICO: angulo muito inclinado. A nave se desintegrou pelo calor!";
+                cor = "#f85149";
+            } 
+            if (angulo<15) {
+                mensagem = "ERRO: angulo muito raso. A nave ricocheteou na atmosfera!";
+                cor = "#d29922";
+            } 
+            if (25>angulo>15) {
+                if (escudo>90){
+                    mensagem = "SUCESSO: entrada perfeita e escudo íntegro";
+                    cor = "#3fb950";}
+                if(90<=escudo<=50){
+                    mensagem = "ATENÇÃO: reentrada segura, mas o escudo precisa de reparo";
+                    cor = "#d29922";}
+                if(escudo<50){
+                    mensagem = "PERIGO: reentrada instavel! Escudo com danos criticos!";
+                    cor = "#f85149";}
+            } 
             //Segue Continuidade da Lógica....
 
             display.innerText = mensagem;
             display.style.color = cor;
+            borderColor.style.color=cor;
             //Chamar borderColor seguir padrão display.style.color = cor;
         });
     </script>
