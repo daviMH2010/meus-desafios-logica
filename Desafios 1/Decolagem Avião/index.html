@@ -114,14 +114,18 @@
 
     <script>
         const btn = document.getElementById('btnVerificar');
+        const campoTexto = document.getElementById('resultado-logica');
         //Chamar váriavel campoTexto seguir padrão de da variavel btn usando objeto (resultado-logica)
 
         btn.addEventListener('click', () => {
             // Entradas de dados
             const combustivel = parseFloat(document.getElementById('combustivel').value);
+            const pesoAeronave = parseFloat(document.getElementById('peso').value);
             //criar variável peso seguir padrão de da variavel combustivel
+            const VelocidadeVento= parseFloat(document.getElementById('vento').value);
              //criar variável vento seguir padrão de variavel combustivel
             const flapsAjustados = document.getElementById('flaps').checked;
+            const autorizacaoTorre = document.getElementById('torre').checked;
             //criar Variável autorizacaoTorre vento seguir padrão de variavel flapsAjustados
 
             let mensagem = "";
@@ -140,20 +144,43 @@
                 decolagemOk = false;
                 cor = "#f85149"; // Rosa/Vermelho
             } 
+            if (!flapsAjustados) {
+                mensagem = "DECOLAGEM ABORTADA: Aguardando ajuste dos flaps.";
+                decolagemOk = false;
+                cor = "#f85149"; // Rosa/Vermelho
+            } 
+            if (combustivel<=25) {
+                mensagem = "DECOLAGEM ABORTADA: O combustivel deve estar acima de 25%.";
+                decolagemOk = false;
+                cor = "#f85149"; // Rosa/Vermelho
+            } 
+            if (pesoAeronave>50 && VelocidadeVento>40) {
+                mensagem = "DECOLAGEM ABORTADA: Se o peso for maior que 50, a velocidade do vento nao pode maior que 40.";
+                decolagemOk = false;
+                cor = "#f85149"; // Rosa/Vermelho
+            } 
+                        if (VelocidadeVento>=60) {
+                mensagem = "DECOLAGEM ABORTADA: Se o peso for menor ou igual que 50, a velocidade do vento nao pode maior que 60.";
+                decolagemOk = false;
+                cor = "#f85149"; // Rosa/Vermelho
+            }
             //Continue Aqui a lógica de bloqueio do voo......
 
 
 
            // --- RESULTADO FINAL ---
             if (decolagemOk) {
+                mensagem="DECOLAGEM AUTORIZADA"
+                cor ="#3fb950"
                 //Coloque aqui o resultado final
             } else {
                 //Saida padrão
             }
-           
+
 
             campoTexto.innerText = mensagem;
             campoTexto.style.color = cor;
+            borderColor.style.color=cor;
             //Chamar borderColor seguir padrão display.style.color = cor;
         });
     </script>
